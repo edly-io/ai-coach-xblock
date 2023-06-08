@@ -39,6 +39,7 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
     )
 
     context = String(
+            display_name='Context',
             default="",
             scope=Scope.settings,
             help="Write the question context here",
