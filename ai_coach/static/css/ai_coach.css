@@ -1,36 +1,36 @@
-/* CSS for AITutorXBlock */
+/* CSS for AICoachXBlock */
 
 :root {
   --font-family : Arial;
 }
 
-.ai_tutor_block{
+.ai_coach_block{
     font-family: var(--font-family), sans-serif;
     margin-bottom: 100px;
 }
 
-.ai_tutor_block .container{
+.ai_coach_block >  .container{
     display: flex;
     justify-content: space-between;
 }
 
-.ai_tutor_block .container > div{
+.ai_coach_block >  .container > div{
     max-width: 40%;
 }
 
-.ai_tutor_block .error{
+.ai_coach_block .error{
     font-size: 12px;
     font-weight: 500;
     color: red;
 }
 
-.ai_tutor_block .success{
+.ai_coach_block .success{
     font-size: 12px;
     font-weight: 500;
     color: green;
 }
 
-.ai_tutor_block .question-side h5, .ai_tutor_block .coach-answer h5{
+.ai_coach_block .question-side h5, .ai_coach_block .coach-answer h5{
     font-size: 18px;
     font-weight: 600;
 }
@@ -42,18 +42,18 @@
     width: 100%;
 }
 
-.ai_tutor_block .question-side button{
+.ai_coach_block .question-side button{
     font-size: 14px;
     padding: 4px 10px;
 }
 
-.ai_tutor_block .coach-answer p{
+.ai_coach_block .coach-answer p{
     border: 2px solid black;
     padding: 10px;
     border-radius: 3%;
     white-space: pre-line;
 }
 
-.ai_tutor_block .hide{
+.ai_coach_block  .hide{
     display: none;
 }

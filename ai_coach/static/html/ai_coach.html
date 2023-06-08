@@ -1,4 +1,4 @@
-<div class="ai_tutor_block">
+<div class="ai_coach_block">
   <div class="container">
     <div class="question-side">
       <h5>Question: <span class="question">{{question}}</span></h5>
@@ -14,7 +14,7 @@
       <br />
 
       <button
-        class="ask-from-coach {% if not is_allowed_for_coach_help %}hide{% endif %}"
+        class="ask-from-coach {% if not can_request_feedback %}hide{% endif %}"
       >
         Ask from coach
       </button>

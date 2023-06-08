@@ -1,4 +1,4 @@
-"""Setup for ai_tutor XBlock."""
+"""Setup for ai_coach XBlock."""
 
 
 import os
@@ -23,20 +23,22 @@ def package_data(pkg, roots):
 
 
 setup(
-    name='ai_tutor-xblock',
+    name='ai_coach-xblock',
     version='0.1',
-    description='ai_tutor XBlock',   # TODO: write a better description.
-    license='UNKNOWN',          # TODO: choose a license: 'AGPL v3' and 'Apache 2.0' are popular.
+    description='ai_coach XBlock',
+    license='AGPL v3',
     packages=[
-        'ai_tutor',
+        'ai_coach',
     ],
     install_requires=[
         'XBlock',
+        'openai',
+        'xblock-utils'
     ],
     entry_points={
         'xblock.v1': [
-            'ai_tutor = ai_tutor:AITutorXBlock',
+            'ai_coach = ai_coach:AICoachXBlock',
         ]
     },
-    package_data=package_data("ai_tutor", ["static", "public"]),
+    package_data=package_data("ai_coach", ["static", "public"]),
 )

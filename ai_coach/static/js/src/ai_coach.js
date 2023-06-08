@@ -1,5 +1,5 @@
-/* Javascript for AITutorXBlock. */
-function AITutorXBlock(runtime, element) {
+/* Javascript for AICoachXBlock. */
+function AICoachXBlock(runtime, element) {
 
     const studentAnswer = $('#student-answer', element);
     const coachAnswer = $('.coach-answer p', element);
