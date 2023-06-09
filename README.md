@@ -25,7 +25,7 @@ OPENAI_SECRET_KEY='set-secret-key'
 ### **Update Advanced Settings of course**
 Update course advanced settings by adding `ai_coach` as shown in below image
 
-![Update settings image](./docs/images/update-settings.png)
+![Update settings image](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/update-settings.png?raw=True)
 
 ### **Update settings of AI Coach Component**
 
@@ -37,14 +37,14 @@ add `question` & `question context` and configure it.
 ```I am grade 8 student studying leadership. My teacher asked me question: {{question}} . I answered {{answer}} . Provide two tips to improve my answer as a grade 8 student. ```   
 
 
-![Configure AI Coach XBlock Image](./docs/images/configure-ai-coach.png)
+![Configure AI Coach XBlock Image](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/configure-ai-coach.png?raw=True)
 
 
 ### **Publish Content**
 
 Use "Preview" button to preview it or publish your content and use "View Live Version" button to see how it appears on LMS
 
-![Preview Live XBlock](./docs/images/ai-coach-preview.png)
+![Preview Live XBlock](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/ai-coach-preview.png?raw=True)
 
 
 ### **Ask For Feedback**
@@ -53,7 +53,7 @@ After adding answer, learner click on `Ask from Coach` button for feedback. Feed
 
 > "**Ask from Coach**" button disappears when the feedback threshold (Maximum no. of times one can request for feedback) is reached. By default, feedback threshold is 1.
 
-![Ask from Coach](./docs/images/ask-from-coach.png)
+![Ask from Coach](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/ask-from-coach.png?raw=True)
 
 
 
@@ -61,5 +61,5 @@ After adding answer, learner click on `Ask from Coach` button for feedback. Feed
 
 Submit button saves the learner answer and mark the completion of Xblock.
 
-![Submit Answer](./docs/images/submit-answer.png)
-![Xblock Completion](./docs/images/xblock-completion.png)
+![Submit Answer](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/submit-answer.png?raw=True)
+![Xblock Completion](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/xblock-completion.png?raw=True)
