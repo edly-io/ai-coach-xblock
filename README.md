@@ -1,10 +1,10 @@
 # **AI Coach XBlock**
 
-AI Coach Xblock is a custom XBlock for Openedx that evaluates open response answer of a question using Open AI. It helps to provide feedback to the learner answer for a question in Openedx.
+AI Coach Xblock helps learner in improving their answers by levering power of AI. It evaluates open response answer of a question using Open AI and provides feedback to learner.
 
 It has the followig features:
 
-1. Helps learner to get feedback on their answer using Open AI
+1. Helps learner to get feedback on their open response answer using Open AI
 2. Learner can improve answer on the basis of Open AI feedback
 3. Ability to mark Question complete in open edX
 4. Save learner answer which can be retrieved later
