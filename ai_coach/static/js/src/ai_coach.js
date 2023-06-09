@@ -17,7 +17,9 @@ function AICoachXBlock(runtime, element) {
         messageElement.text('');
         coachAnswer.text(result.coach_answer);
 
-        $('.ask-from-coach', element).hide();
+        if (!result.can_request_feedback) {
+            $('.ask-from-coach', element).hide();
+        }
         $('.coach-answer ', element).show();
     }
 
