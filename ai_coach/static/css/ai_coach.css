@@ -1,0 +1,59 @@
+/* CSS for AICoachXBlock */
+
+:root {
+  --font-family : Arial;
+}
+
+.ai_coach_block{
+    font-family: var(--font-family), sans-serif;
+    margin-bottom: 100px;
+}
+
+.ai_coach_block >  .container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ai_coach_block >  .container > div{
+    max-width: 40%;
+}
+
+.ai_coach_block .error{
+    font-size: 12px;
+    font-weight: 500;
+    color: red;
+}
+
+.ai_coach_block .success{
+    font-size: 12px;
+    font-weight: 500;
+    color: green;
+}
+
+.ai_coach_block .question-side h5, .ai_coach_block .coach-answer h5{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#student-answer{
+    font-size: 16px;
+    font-family: var(--font-family);
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.ai_coach_block .question-side button{
+    font-size: 14px;
+    padding: 4px 10px;
+}
+
+.ai_coach_block .coach-answer p{
+    border: 2px solid black;
+    padding: 10px;
+    border-radius: 3%;
+    white-space: pre-line;
+}
+
+.ai_coach_block  .hide{
+    display: none;
+}

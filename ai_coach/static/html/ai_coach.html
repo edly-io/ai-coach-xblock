@@ -1,0 +1,30 @@
+<div class="ai_coach_block">
+  <div class="container">
+    <div class="question-side">
+      <h5>Question: <span class="question">{{question}}</span></h5>
+      <textarea
+        id="student-answer"
+        rows="10"
+        cols="40"
+        placeholder="Enter your answer"
+      >
+{{student_answer}}</textarea
+      >
+      <p class="messages"></p>
+      <br />
+
+      <button
+        class="ask-from-coach {% if not can_request_feedback %}hide{% endif %}"
+      >
+        Ask from coach
+      </button>
+
+      <button class="submit-answer">Submit</button>
+    </div>
+
+    <div class="coach-answer hide">
+      <h5>Coach answered:</h5>
+      <p></p>
+    </div>
+  </div>
+</div>
