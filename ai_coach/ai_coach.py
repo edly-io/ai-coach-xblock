@@ -122,7 +122,7 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
 
         try:
             response = openai.Completion.create(
-                    prompt=prompt, model=model, temperature=temperature, max_tokens=max_tokens, n=n
+                    prompt=prompt, engine=model, temperature=temperature, max_tokens=max_tokens, n=n
             )
         except Exception as err:
             log.error(err)
