@@ -29,7 +29,8 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
             display_name='Question',
             default='',
             scope=Scope.settings,
-            help='The question asked by the teacher'
+            multiline_editor=True,
+            help='The question asked by the teacher',
     )
     student_answer = String(
             display_name='Answer',
@@ -42,11 +43,12 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
             display_name='Context',
             default="",
             scope=Scope.settings,
+            multiline_editor=True,
             help="Write the question context here",
-            multiline=True
     )
 
     feedback_threshold = Integer(
+            display_name='Feedback Threshold',
             default=1, scope=Scope.settings,
             help="Maximum no. of times student asks for feedback"
     )
@@ -71,6 +73,7 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
     )
 
     description = String(
+            display_name='Description',
             default='Description here...',
             scope=Scope.settings,
             help='Any Description'
