@@ -138,8 +138,8 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
             return {'error': 'Answer must be required'}
 
         student_answer = data['answer'].strip()
-        prompt = self.context.replace('{{question}}', f'"{self.question}"')
-        prompt = prompt.replace('{{answer}}', f'"{student_answer}"')
+        prompt = self.context.replace('{{question}}', '"{}"'.format(self.question))
+        prompt = prompt.replace('{{answer}}', '"{}"'.format(student_answer))
 
         openai.api_key = self.api_key
         response = self.get_completion(prompt)
