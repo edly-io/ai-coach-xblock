@@ -122,7 +122,7 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
 
         try:
             response = openai.Completion.create(
-                    prompt=prompt, model=model, temperature=temperature, max_tokens=max_tokens, n=n
+                    prompt=prompt, engine=model, temperature=temperature, max_tokens=max_tokens, n=n
             )
         except Exception as err:
             log.error(err)
@@ -138,8 +138,8 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
             return {'error': 'Answer must be required'}
 
         student_answer = data['answer'].strip()
-        prompt = self.context.replace('{{question}}', f'"{self.question}"')
-        prompt = prompt.replace('{{answer}}', f'"{student_answer}"')
+        prompt = self.context.replace('{{question}}', '"{}"'.format(self.question))
+        prompt = prompt.replace('{{answer}}', '"{}"'.format(student_answer))
 
         openai.api_key = self.api_key
         response = self.get_completion(prompt)
