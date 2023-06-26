@@ -1,30 +1,49 @@
+{% load i18n %}
+
 <div class="ai_coach_block">
-  <div class="container">
-    <div class="question-side">
-      <h5>Question: <span class="question">{{question}}</span></h5>
-      <textarea
-        id="student-answer"
-        rows="10"
-        cols="40"
-        placeholder="Enter your answer"
-      >
-{{student_answer}}</textarea
-      >
-      <p class="messages"></p>
-      <br />
+  <h3 class="xblock-title">{{title}}</h3>
+  <div class="d-flex justify-content-between ai_coach_wrapper">
+    <div class="question-response-container">
+      <div class="question-container">
+        <h5 class="container-text-title">{% trans 'The prompt for this section' %}</h5>
+        <article class="question-container-prompt">
+          <div class="question-container-prompt-text">
+            <p class="question-content">{{question}}</p>
+          </div>
+        </article>
+      </div>
 
-      <button
-        class="ask-from-coach {% if not can_request_feedback %}hide{% endif %}"
-      >
-        Ask from coach
-      </button>
+      <div class="response-container">
+        <h5 class="container-text-title">{% trans 'Your Response (required)' %}</h5>
+        <textarea class="field response-text-container" id="student-answer" placeholder="{% trans 'Enter your answer' %}">
+{{student_answer}}</textarea>
 
-      <button class="submit-answer">Submit</button>
+        <div class="message message--hide">
+          <p class="message__title text-white mb-0"></p>
+        </div>
+
+        <div class="d-flex">
+          <button
+            class="btn btn-primary btn-ask-from-coach mr-2 {%if feedback_count >= feedback_threshold%}disabled{%endif%}"
+            >
+            {% trans 'Ask from coach' %}
+              <tool-tip role="tooltip" tip-position="right"></tool-tip>
+          </button>
+
+          <button class="btn btn-primary btn-submit-answer">{% trans 'Submit' %}</button>
+        </div>
+      </div>
     </div>
 
-    <div class="coach-answer hide">
-      <h5>Coach answered:</h5>
-      <p></p>
+    <div class="ai-divider"></div>
+
+    <div class="coach-answer-container d-none">
+      <h5 class="container-text-title">{% trans 'Coach answered:' %}</h5>
+      <p class="coach-answer-text"></p>
     </div>
   </div>
+
+
+
+
 </div>

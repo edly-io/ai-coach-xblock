@@ -1,60 +1,256 @@
 /* CSS for AICoachXBlock */
 
 :root {
-  --font-family : Arial;
+    --font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.ai_coach_block{
+.ai_coach_block {
+    position: relative;
     font-family: var(--font-family), sans-serif;
     margin-bottom: 100px;
 }
 
-.ai_coach_block >  .container{
-    display: flex;
-    justify-content: space-between;
+.ai_coach_block .xblock-title {
+    font-family: var(--font-family);
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    color: #414141;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
 }
 
-.ai_coach_block >  .container > div{
-    max-width: 40%;
+.ai_coach_block>.ai_coach_wrapper {
+    padding: 10px 10px 20px 10px;
+    background: #f5f6f7;
+    border-radius: 2px;
 }
 
-.ai_coach_block .error{
-    font-size: 12px;
-    font-weight: 500;
-    color: red;
-}
-
-.ai_coach_block .success{
-    font-size: 12px;
-    font-weight: 500;
-    color: green;
-}
-
-.ai_coach_block .question-side h5, .ai_coach_block .coach-answer h5{
-    font-size: 18px;
+.ai_coach_block .container-text-title {
+    font-size: 14px;
+    line-height: 21px;
     font-weight: 600;
 }
 
-#student-answer{
+.ai_coach_block .ai_coach_wrapper .question-response-container,
+.ai_coach_block .ai_coach_wrapper .coach-answer-container {
+    width: 48%;
+    padding: 0 10px;
+}
+
+.ai_coach_block .ai-divider {
+    width: 2px;
+    background-color: lightgray;
+    border-radius: 50%;
+}
+
+.ai_coach_block .question-container .question-container-prompt {
+    position: relative;
+    margin: 10px 0;
+    border: 1px solid #d9d9d9;
+    border-left: 10px solid #b9c1c8;
+    padding-left: 30px;
+    box-shadow: inset 0 1px 2px 1px rgba(3, 3, 3, 0.1);
+    padding: 20px 20px;
+    background: #fdfdfd;
+}
+
+.ai_coach_block .question-container .question-container-prompt .question-content {
+    color: #414141;
     font-size: 16px;
-    font-family: var(--font-family);
-    margin-bottom: 10px;
-    width: 100%;
-    min-height: 150px;
-}
-
-.ai_coach_block .question-side button{
-    font-size: 14px;
-    padding: 4px 10px;
-}
-
-.ai_coach_block .coach-answer p{
-    border: 2px solid black;
-    padding: 10px;
-    border-radius: 3%;
+    line-height: 24px;
     white-space: pre-line;
+    margin-bottom: 0;
 }
 
-.ai_coach_block  .hide{
+.response-container .response-text-container {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    width: 100%;
+    min-height: 200px;
+    max-height: 300px;
+    overflow-y: scroll;
+    margin: 10px 0;
+
+    border-radius: 0;
+    background-color: #fff;
+    border: 1px solid #b9c1c8;
+    padding: 10px;
+    color: #414141;
+    overflow: auto;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6),
+        inset 0 0 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.response-container .response-text-container:focus {
+    box-shadow: 0 0 6px 0 rgba(29, 157, 217, 0.4),
+        inset 0 0 4px 0 rgba(0, 0, 0, 0.15);
+    border-color: #000;
+}
+
+.response-container .response-text-container:placeholder-shown~div .btn-primary,
+.response-container .response-text-container:placeholder-shown~div .btn-primary:hover{
+    background: #fff;
+    border-color: #b4b3b3;
+    color: #b4b3b3;
+    opacity: 1;
+    pointer-events: none;
+}
+
+
+.ai_coach_block .question-response-container .btn-primary.disabled,
+.ai_coach_block .question-response-container .btn-primary.disabled:focus,
+.ai_coach_block .question-response-container .btn-primary.disabled:active,
+.ai_coach_block .question-response-container .btn-primary.disabled:hover
+{
+    background: #fff;
+    border-color: #b4b3b3;
+    color: #b4b3b3;
+    opacity: 1;
+    pointer-events: auto;
+    cursor: not-allowed;
+}
+
+.ai_coach_block .message {
+    padding: 10px 20px;
+    font-size: 12px;
+    line-height: 19px;
+    font-weight: 500;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.ai_coach_block .message--hide {
     display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.ai_coach_block .message__title {
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.ai_coach_block button {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.25s ease-in-out, background 0.25s ease-in-out,
+        box-shadow 0.25s ease-in-out;
+}
+
+.ai_coach_block .question-response-container .btn-primary {
+    border-radius: 4px;
+    padding: 10px 40px;
+    background: #fff;
+    border: 1px solid #065683;
+    color: #065683;
+    max-width: 215px;
+    min-width: 100px;
+}
+
+.ai_coach_block .question-response-container .btn-primary:hover,
+.ai_coach_block .question-response-container .btn-primary:active,
+.ai_coach_block .question-response-container .btn-primary:focus {
+    background: #0075b4;
+    border-color: #0075b4;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: none;
+}
+
+.ai_coach_block .coach-answer-container .coach-answer-text {
+    color: #414141;
+    border: 1px solid #b9c1c8;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 2px;
+    white-space: pre-line;
+    box-shadow: inset 0 1px 2px 1px rgba(3, 3, 3, 0.1);
+}
+
+/* ----------------------------Tooltip Styling----------------------- */
+
+
+.ai_coach_block tool-tip {
+    --_p-inline: 1.5ch;
+    --_p-block: 0.75ch;
+    --_bg: #fff;
+    --_shadow-alpha: 50%;
+    pointer-events: none;
+    user-select: none;
+
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+    inline-size: max-content;
+    max-inline-size: 25ch;
+    text-align: start;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: initial;
+    font-weight: normal;
+    line-height: normal;
+    line-height: initial;
+    padding: var(--_p-block) var(--_p-inline);
+    margin: 0;
+    border-radius: 5px;
+    background: var(--_bg);
+    color: #414141;
+    will-change: filter;
+    filter: drop-shadow(0 3px 3px hsl(0 0% 0% / var(--_shadow-alpha))) drop-shadow(0 12px 12px hsl(0 0% 0% / var(--_shadow-alpha)));
+    transition: opacity 0.1s ease, transform 0.2s ease;
+}
+
+.ai_coach_block tool-tip:is([tip-position="right"], [tip-position="inline-end"]) {
+    inset-inline-start: calc(100% + 1.5ch);
+    inset-block-end: 50%;
+    transform: translateY(50%);
+}
+
+.ai_coach_block tool-tip::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 0;
+    height: 0;
+}
+
+.ai_coach_block tool-tip[tip-position="right"]::after {
+    top: 50%;
+    left: -6px;
+    transform: translateY(-50%);
+    border-right: 7px solid white;
+    border-top: solid 7px transparent;
+    border-bottom: solid 7px transparent;
+}
+
+.ai_coach_block :has(> tool-tip) {
+    position: relative;
+}
+
+.ai_coach_block :has(> tool-tip):is(:hover)>tool-tip {
+    opacity: 1;
+    transition-delay: 200ms;
+}
+
+
+/* ------------------------Studio API Key Field Styling--------------------- */
+
+#xb-field-edit-api_key{
+    -webkit-text-security : disc;
+}
+
+#xb-field-edit-api_key:focus, 
+#xb-field-edit-api_key:active{
+    -webkit-text-security : none;
 }
