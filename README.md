@@ -59,7 +59,7 @@ After adding answer, learner click on `Ask from Coach` button for feedback. Feed
 2. The tooltip which appears when hovering over the `Ask from coach` button represents the chances to request feedback from AI Coach.
 ![Show Feedback chances](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/feedback-threshold-1.png?raw=True)
 
-3. Once all available chances to request help from the coach have been utilized, `Ask from coach` button will become disable and learners will see the following message on tooltip: "You have exhausted all available opportunities to seek guidance from the coach."
+3. Once all available chances to request help from the coach have been utilized, `Ask from coach` button will be disabled and learners will see the following message on tooltip: "You have exhausted all available opportunities to seek guidance from the coach."
 ![Tooltip represents remaining chances to ask feedback](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/feedback-threshold-2.png?raw=True)
 ![No remaining feedback chances](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/feedback-threshold-3.png?raw=True)
 
