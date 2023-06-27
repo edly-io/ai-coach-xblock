@@ -51,9 +51,17 @@ Use "Preview" button to preview it or publish your content and use "View Live Ve
 
 After adding answer, learner click on `Ask from Coach` button for feedback. Feedback is provided by OPEN AI on the basis of question context and answer. 
 
-> "**Ask from Coach**" button disappears when the feedback threshold (Maximum no. of times one can request for feedback) is reached. By default, feedback threshold is 1.
+#### **Setting the feedback threshold**
 
-![Ask from Coach](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/ask-from-coach.png?raw=True)
+1. The feedback threshold represents the maximum number of times a learner can request feedback. You can configure the feedback threshold by accessing the AI Coach Component settings in the CMS.
+![Set threshold from CMS](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/set-threshold.png?raw=True)
+
+2. The tooltip which appears when hovering over the `Ask from coach` button represents the chances to request feedback from AI Coach.
+![Show Feedback chances](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/feedback-threshold-1.png?raw=True)
+
+3. Once all available chances to request help from the coach have been utilized, `Ask from coach` button will be disabled and learners will see the following message on tooltip: "You have exhausted all available opportunities to seek guidance from the coach."
+![Tooltip represents remaining chances to ask feedback](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/feedback-threshold-2.png?raw=True)
+![No remaining feedback chances](https://github.com/edly-io/ai-coach-xblock/blob/main/docs/images/feedback-threshold-3.png?raw=True)
 
 
 
