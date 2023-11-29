@@ -1,18 +1,21 @@
+from xblockutils.studio_editable import StudioEditableXBlockMixin
+from xblock.fields import Float, Integer, Scope, String
+from xblock.core import XBlock
+from xblock.completable import CompletableXBlockMixin
+from web_fragments.fragment import Fragment
+from django.template import Context, Template
+from django.conf import settings
+import pkg_resources
 import logging
 
-import openai
-import pkg_resources
-from django.conf import settings
-from django.template import Context, Template
-from web_fragments.fragment import Fragment
-from xblock.completable import CompletableXBlockMixin
-from xblock.core import XBlock
-from xblock.fields import Float, Integer, Scope, String
-from xblockutils.studio_editable import StudioEditableXBlockMixin
+from openai import OpenAI
+
 
 log = logging.getLogger(__name__)
 
-_ = lambda text: text
+
+def _(text): return text
+
 
 CHAT_COMPLETION_MODELS = ['gpt-3.5-turbo']
 TEXT_COMPLETION_MODELS = [
@@ -24,6 +27,7 @@ TEXT_COMPLETION_MODELS = [
 ]
 AI_MODELS = CHAT_COMPLETION_MODELS + TEXT_COMPLETION_MODELS
 
+
 @XBlock.wants('i18n')
 class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
     """
@@ -31,74 +35,74 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
     """
 
     display_name = String(
-            display_name=_('Display Name'),
-            help=_('Display name for this module'),
-            default="AI Coach",
-            scope=Scope.settings
+        display_name=_('Display Name'),
+        help=_('Display name for this module'),
+        default="AI Coach",
+        scope=Scope.settings
     )
 
     question = String(
-            display_name=_('Question'),
-            default='',
-            scope=Scope.settings,
-            multiline_editor=True,
-            help=_('The question asked by the teacher'),
+        display_name=_('Question'),
+        default='',
+        scope=Scope.settings,
+        multiline_editor=True,
+        help=_('The question asked by the teacher'),
     )
     student_answer = String(
-            display_name=_('Answer'),
-            default='',
-            scope=Scope.user_state,
-            help=_('The answer provided by Student')
+        display_name=_('Answer'),
+        default='',
+        scope=Scope.user_state,
+        help=_('The answer provided by Student')
     )
 
     context = String(
-            display_name=_('Context'),
-            default="",
-            scope=Scope.settings,
-            multiline_editor=True,
-            help=_("Write the question context here"),
+        display_name=_('Context'),
+        default="",
+        scope=Scope.settings,
+        multiline_editor=True,
+        help=_("Write the question context here"),
     )
 
     feedback_threshold = Integer(
-            display_name=_('Feedback Threshold'),
-            default=1, scope=Scope.settings,
-            help=_("Maximum no. of times student asks for feedback")
+        display_name=_('Feedback Threshold'),
+        default=5, scope=Scope.settings,
+        help=_("Maximum no. of times student asks for feedback")
     )
     feedback_count = Integer(
-            default=0, scope=Scope.user_state,
-            help=_("No. of times student asks for feedback")
+        default=0, scope=Scope.user_state,
+        help=_("No. of times student asks for feedback")
     )
 
     api_key = String(
-            display_name=_("API Key"),
-            default=settings.OPENAI_SECRET_KEY,
-            scope=Scope.settings,
-            help=_(
-                "Your OpenAI API key, which can be found at <a href='https://platform.openai.com/account/api-keys' target='_blank'>https://platform.openai.com/account/api-keys</a>"
-                ),
+        display_name=_("API Key"),
+        default=settings.OPENAI_SECRET_KEY,
+        scope=Scope.settings,
+        help=_(
+            "Your OpenAI API key, which can be found at <a href='https://platform.openai.com/account/api-keys' target='_blank'>https://platform.openai.com/account/api-keys</a>"
+        ),
     )
 
     model_name = String(
-            display_name=_("AI Model Name"), values=AI_MODELS,
-            default="text-davinci-003", scope=Scope.settings,
-            help=_("Select an AI Text model.")
+        display_name=_("AI Model Name"), values=AI_MODELS,
+        default="text-davinci-003", scope=Scope.settings,
+        help=_("Select an AI Text model.")
     )
 
     temperature = Float(
-            display_name=_('Temperature'),
-            default=0.5,
-            values={'min': 0.1, 'max': 2, 'step': 0.1},
-            scope=Scope.settings,
-            help=_(
-                'Higher values like 0.8 will make the output more random, while lower values \n like 0.2 will make it more focused and deterministic.'
-                )
+        display_name=_('Temperature'),
+        default=0.5,
+        values={'min': 0.1, 'max': 2, 'step': 0.1},
+        scope=Scope.settings,
+        help=_(
+            'Higher values like 0.8 will make the output more random, while lower values \n like 0.2 will make it more focused and deterministic.'
+        )
     )
 
     description = String(
-            display_name=_('Description'),
-            default='Description here...',
-            scope=Scope.settings,
-            help=_('Any Description')
+        display_name=_('Description'),
+        default='Description here...',
+        scope=Scope.settings,
+        help=_('Any Description')
     )
 
     editable_fields = [
@@ -111,6 +115,18 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
         'description',
         'feedback_threshold'
     ]
+
+    def get_openai_client(self):
+        """
+        Initialize and return an OpenAI client using the API key stored in the XBlock settings.
+        """
+        api_key = self.api_key
+        try:
+            client = OpenAI(api_key=api_key)
+            return client
+        except Exception:
+            # Handle the exception as appropriate for your application
+            return {'error': _('Failed to initialize OpenAI client')}
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -150,16 +166,17 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
             self, prompt='', model='gpt-3.5-turbo', temperature=0.5, max_tokens=150, n=1
     ):
         """ Returns the improvement for student answer using ChatGPT Model """
+        client = self.get_openai_client()
+        if client is None:
+            return {'error': _('Unable to initialize OpenAI client. Please check configuration.')}
 
         messages = [{"role": "user", "content": prompt}]
         try:
-            response = openai.ChatCompletion.create(
-                    messages=messages,
-                    model=model,
-                    temperature=temperature,
-                    max_tokens=max_tokens,
-                    n=n
-            )
+            response = client.chat.completions.create(messages=messages,
+                                                      model=model,
+                                                      temperature=temperature,
+                                                      max_tokens=max_tokens,
+                                                      n=n)
         except Exception as err:
             log.error(err)
             return {'error': _('Unable to connect to AI-coach. Please contact your administrator')}
@@ -170,11 +187,13 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
             self, prompt='', model='text-davinci-003', temperature=0.5, max_tokens=150, n=1
     ):
         """ Returns the improvement for student answer using Text AI Model """
+        client = self.get_openai_client()
+        if client is None:
+            return {'error': _('Unable to initialize OpenAI client. Please check configuration.')}
 
         try:
-            response = openai.Completion.create(
-                    prompt=prompt, model=model, temperature=temperature, max_tokens=max_tokens, n=n
-            )
+            response = client.completions.create(
+                prompt=prompt, model=model, temperature=temperature, max_tokens=max_tokens, n=n)
         except Exception as err:
             log.error(err)
             return {'error': _('Unable to connect to AI-coach. Please contact your administrator')}
@@ -194,7 +213,6 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
         prompt = self.context.replace('{{question}}', f'"{self.question}"')
         prompt = prompt.replace('{{answer}}', f'"{student_answer}"')
 
-        openai.api_key = self.api_key
         if self.model_name in CHAT_COMPLETION_MODELS:
             response = self.get_chat_completion(
                 prompt, self.model_name, self.temperature
