@@ -65,7 +65,7 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
 
     feedback_threshold = Integer(
         display_name=_('Feedback Threshold'),
-        default=5, scope=Scope.settings,
+        default=1, scope=Scope.settings,
         help=_("Maximum no. of times student asks for feedback")
     )
     feedback_count = Integer(
