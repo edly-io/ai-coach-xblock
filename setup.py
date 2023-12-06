@@ -29,7 +29,7 @@ def package_data(pkg, roots):
 
 setup(
     name='ai-coach-xblock',
-    version='1.0.3',
+    version='1.0.5',
     description="AI Coach Xblock evaluates open response answer of a question using Open AI",
     long_description=long_description,
     long_description_content_type='text/markdown',
