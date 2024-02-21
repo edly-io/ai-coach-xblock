@@ -181,7 +181,7 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
             log.error(err)
             return {'error': _('Unable to connect to AI-coach. Please contact your administrator')}
 
-        return {'response': response.choices[0].message['content']}
+        return {'response': response.choices[0].message.content}
 
     def get_completion(
             self, prompt='', model='text-davinci-003', temperature=0.5, max_tokens=150, n=1
