@@ -5,7 +5,7 @@ from xblock.completable import CompletableXBlockMixin
 from web_fragments.fragment import Fragment
 from django.template import Context, Template
 from django.conf import settings
-import pkg_resources
+import importlib_resources
 import logging
 
 from openai import OpenAI
@@ -130,7 +130,7 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
-        data = pkg_resources.resource_string(__name__, path)
+        data = importlib_resources.files(__package__).joinpath(path).read_bytes()
         return data.decode("utf8")
 
     def get_context(self):
