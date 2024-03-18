@@ -75,10 +75,11 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
 
     api_key = String(
         display_name=_("API Key"),
-        default=settings.OPENAI_SECRET_KEY,
+        default=getattr(settings, 'OPENAI_SECRET_KEY', ''),
         scope=Scope.settings,
         help=_(
-            "Your OpenAI API key, which can be found at <a href='https://platform.openai.com/account/api-keys' target='_blank'>https://platform.openai.com/account/api-keys</a>"
+            "Your OpenAI API key, which can be found at \
+            <a href='https://platform.openai.com/account/api-keys' target='_blank'>AI API Keys</a>"
         ),
     )
 
@@ -94,7 +95,8 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
         values={'min': 0.1, 'max': 2, 'step': 0.1},
         scope=Scope.settings,
         help=_(
-            'Higher values like 0.8 will make the output more random, while lower values \n like 0.2 will make it more focused and deterministic.'
+            'Higher values like 0.8 will make the output more random, \
+            while lower values \n like 0.2 will make it more focused and deterministic.'
         )
     )
 
