@@ -33,7 +33,7 @@ setup(
     description="AI Coach Xblock evaluates open response answer of a question using Open AI",
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/edly-io/ai-feedback-xblock',
+    url='https://github.com/edly-io/ai-coach-xblock',
     license='AGPL v3',
     author='edly',
     packages=[
