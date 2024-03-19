@@ -17,17 +17,6 @@ log = logging.getLogger(__name__)
 def _(text): return text
 
 
-CHAT_COMPLETION_MODELS = ['gpt-3.5-turbo']
-TEXT_COMPLETION_MODELS = [
-    'text-davinci-003',
-    'text-davinci-002',
-    'text-curie-001',
-    'text-babbage-001',
-    'text-ada-001',
-]
-AI_MODELS = CHAT_COMPLETION_MODELS + TEXT_COMPLETION_MODELS
-
-
 @XBlock.wants('i18n')
 class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
     """
@@ -84,9 +73,13 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
     )
 
     model_name = String(
-        display_name=_("AI Model Name"), values=AI_MODELS,
-        default="text-davinci-003", scope=Scope.settings,
-        help=_("Select an AI Text model.")
+        display_name=_("AI Model Name"),
+        default="gpt-3.5-turbo", scope=Scope.settings,
+        help=_(
+            "AI Text model to be used \
+            <a href='https://platform.openai.com/docs/models/overview' target='_blank'> \
+            see available models</a>"
+        )
     )
 
     temperature = Float(
@@ -185,23 +178,6 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
 
         return {'response': response.choices[0].message.content}
 
-    def get_completion(
-            self, prompt='', model='text-davinci-003', temperature=0.5, max_tokens=150, n=1
-    ):
-        """ Returns the improvement for student answer using Text AI Model """
-        client = self.get_openai_client()
-        if client is None:
-            return {'error': _('Unable to initialize OpenAI client. Please check configuration.')}
-
-        try:
-            response = client.completions.create(
-                prompt=prompt, model=model, temperature=temperature, max_tokens=max_tokens, n=n)
-        except Exception as err:
-            log.error(err)
-            return {'error': _('Unable to connect to AI-coach. Please contact your administrator')}
-
-        return {'response': response.choices[0].text}
-
     @XBlock.json_handler
     def ask_from_coach(self, data, suffix=''):
 
@@ -215,14 +191,9 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
         prompt = self.context.replace('{{question}}', f'"{self.question}"')
         prompt = prompt.replace('{{answer}}', f'"{student_answer}"')
 
-        if self.model_name in CHAT_COMPLETION_MODELS:
-            response = self.get_chat_completion(
-                prompt, self.model_name, self.temperature
-            )
-        elif self.model_name in TEXT_COMPLETION_MODELS:
-            response = self.get_completion(
-                prompt, self.model_name, self.temperature
-            )
+        response = self.get_chat_completion(
+            prompt, self.model_name, self.temperature
+        )
 
         if 'error' in response:
             return {'error': response['error']}
