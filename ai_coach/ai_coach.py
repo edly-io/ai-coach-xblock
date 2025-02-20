@@ -5,10 +5,18 @@ from xblock.completable import CompletableXBlockMixin
 from web_fragments.fragment import Fragment
 from django.template import Context, Template
 from django.conf import settings
-import importlib_resources
 import logging
 
 from openai import OpenAI
+
+try:
+    # Older Open edX releases (Redwood and earlier) install a backported version of
+    # importlib.resources: https://pypi.org/project/importlib-resources/
+    import importlib_resources
+except ModuleNotFoundError:
+    # Starting with Sumac, Open edX drops importlib-resources in favor of the standard library:
+    # https://docs.python.org/3/library/importlib.resources.html#module-importlib.resources
+    from importlib import resources as importlib_resources
 
 
 log = logging.getLogger(__name__)
@@ -125,7 +133,10 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
-        data = importlib_resources.files(__name__).joinpath(path).read_bytes()
+        try:
+            data = importlib_resources.files(__name__).joinpath(path).read_bytes()
+        except TypeError:
+            data = importlib_resources.files(__package__).joinpath(path).read_bytes()
         return data.decode("utf8")
 
     def get_context(self):
