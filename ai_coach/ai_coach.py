@@ -1,4 +1,4 @@
-from xblockutils.studio_editable import StudioEditableXBlockMixin
+from xblock.utils.studio_editable import StudioEditableXBlockMixin
 from xblock.fields import Float, Integer, Scope, String
 from xblock.core import XBlock
 from xblock.completable import CompletableXBlockMixin

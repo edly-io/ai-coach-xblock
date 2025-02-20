@@ -4,7 +4,7 @@
 import os
 
 from pathlib import Path
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 this_directory = Path(__file__).parent
@@ -36,13 +36,13 @@ setup(
     url='https://github.com/edly-io/ai-coach-xblock',
     license='AGPL v3',
     author='edly',
-    packages=[
-        'ai_coach',
-    ],
+    packages=find_packages(
+        include=['ai_coach', 'ai_coach.*'],
+        exclude=["*tests"],
+    ),
     install_requires=[
         'XBlock',
-        'openai==1.3.5',
-        'xblock-utils'
+        'openai==1.3.5'
     ],
     entry_points={
         'xblock.v1': [
