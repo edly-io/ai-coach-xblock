@@ -198,8 +198,18 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
         if self.feedback_count >= self.feedback_threshold:
             return {'error': _("You've exhausted all available chances to ask the coach for help")}
 
+        ai_context = self.context + """
+        Evaluate the student's response to the question below:
+        Question: {{question}}
+        Student's Answer: {{answer}}
+
+        Provide detailed feedback that includes:
+        - An assessment of correctness.
+        - Clear guidance on how to improve the answer, if needed.
+    """
+
         student_answer = data['answer'].strip()
-        prompt = self.context.replace('{{question}}', f'"{self.question}"')
+        prompt = ai_context.replace('{{question}}', f'"{self.question}"')
         prompt = prompt.replace('{{answer}}', f'"{student_answer}"')
 
         response = self.get_chat_completion(
