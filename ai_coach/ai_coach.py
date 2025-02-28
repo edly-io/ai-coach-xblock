@@ -199,9 +199,9 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
             return {'error': _("You've exhausted all available chances to ask the coach for help")}
 
         ai_context = self.context + """
-        Evaluate the student's response to the question below:
+        Evaluate my response to the question below:
         Question: {{question}}
-        Student's Answer: {{answer}}
+        My Answer: {{answer}}
 
         Provide detailed feedback that includes:
         - An assessment of correctness.
