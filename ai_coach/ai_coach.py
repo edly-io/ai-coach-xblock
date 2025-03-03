@@ -2,6 +2,7 @@ from xblock.utils.studio_editable import StudioEditableXBlockMixin
 from xblock.fields import Float, Integer, Scope, String
 from xblock.core import XBlock
 from xblock.completable import CompletableXBlockMixin
+from xblock.validation import ValidationMessage
 from web_fragments.fragment import Fragment
 from django.template import Context, Template
 from django.conf import settings
@@ -54,7 +55,14 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
 
     context = String(
         display_name=_('Context'),
-        default="",
+        default="""
+        Evaluate my response to the question below:
+        Question: {{question}}
+        My Answer: {{answer}}
+        Provide detailed feedback that includes:
+        - An assessment of correctness.
+        - Clear guidance on how to improve the answer, if needed.
+        """,
         scope=Scope.settings,
         multiline_editor=True,
         help=_("Write the question context here"),
@@ -243,3 +251,26 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
                 </vertical_demo>
              """),
         ]
+
+    def validate_field_data(self, validation, data):
+        """
+        Validate the context field to ensure it contains both {{question}} and {{answer}} 
+        placeholders.
+        """
+        super().validate_field_data(validation, data)  # Call the parent class's validation
+
+        context = data.context.strip() if data.context else ""
+
+        # Check for missing placeholders
+        missing_placeholders = []
+        if "{{question}}" not in context:
+            missing_placeholders.append("{{question}}")
+        if "{{answer}}" not in context:
+            missing_placeholders.append("{{answer}}")
+
+        if missing_placeholders:
+            missing_str = ", ".join(missing_placeholders)
+            validation.add(ValidationMessage(
+                ValidationMessage.ERROR,
+                f"The context field must include the following placeholders: {missing_str}"
+            ))
