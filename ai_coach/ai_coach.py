@@ -55,7 +55,14 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
 
     context = String(
         display_name=_('Context'),
-        default="",
+        default="""
+        Evaluate my response to the question below:
+        Question: {{question}}
+        My Answer: {{answer}}
+        Provide detailed feedback that includes:
+        - An assessment of correctness.
+        - Clear guidance on how to improve the answer, if needed.
+    """,
         scope=Scope.settings,
         multiline_editor=True,
         help=_("Write the question context here"),
