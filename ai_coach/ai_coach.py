@@ -62,7 +62,7 @@ class AICoachXBlock(XBlock, StudioEditableXBlockMixin, CompletableXBlockMixin):
         Provide detailed feedback that includes:
         - An assessment of correctness.
         - Clear guidance on how to improve the answer, if needed.
-    """,
+        """,
         scope=Scope.settings,
         multiline_editor=True,
         help=_("Write the question context here"),
