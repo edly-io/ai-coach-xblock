@@ -1,4 +1,3 @@
-from xblock.utils.studio_editable import StudioEditableXBlockMixin
 from xblock.fields import Float, Integer, Scope, String
 from xblock.core import XBlock
 from xblock.completable import CompletableXBlockMixin
@@ -9,6 +8,11 @@ from django.conf import settings
 import logging
 
 from openai import OpenAI
+
+try:
+    from xblock.utils.studio_editable import StudioEditableXBlockMixin
+except ModuleNotFoundError: # For backward compatibility with releases older than Quince.
+    from xblockutils.studio_editable import StudioEditableXBlockMixin
 
 try:
     # Older Open edX releases (Redwood and earlier) install a backported version of
